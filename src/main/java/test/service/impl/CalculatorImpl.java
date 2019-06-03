@@ -1,4 +1,4 @@
-package test;
+package test.service.impl;
 
 import test.beans.Action;
 import test.beans.Actions;
@@ -6,26 +6,20 @@ import test.exception.DivZeroException;
 import test.exception.ParameterLessException;
 import test.exception.SqrtException;
 import test.exception.UndoException;
+import test.service.Calculator;
 
 import java.util.Stack;
 
-public class Calculator {
-    public final static String ADD = "+";
-    public final static String SUB = "-";
-    public final static String MUL = "*";
-    public final static String DIV = "/";
-    public final static String SQRT = "sqrt";
-    public final static String UNDO = "undo";
-    public final static String CLEAR = "clear";
-
+public class CalculatorImpl implements Calculator {
     private Stack<Double> stack = null;
     private Actions actions = null;
 
-    public Calculator() {
+    public CalculatorImpl() {
         stack = new Stack<>();
         actions = new Actions();
     }
 
+    @Override
     public void add() {
         if (stack.size() < 2) {
             throw new ParameterLessException("the size of stack is less than 2");
@@ -37,6 +31,7 @@ public class Calculator {
         actions.addStart().addPop(a).addPop(b).addPush().addEnd();
     }
 
+    @Override
     public void sub() {
         if (stack.size() < 2) {
             throw new ParameterLessException("the size of stack is less than 2");
@@ -48,6 +43,7 @@ public class Calculator {
         actions.addStart().addPop(a).addPop(b).addPush().addEnd();
     }
 
+    @Override
     public void mul() {
         if (stack.size() < 2) {
             throw new ParameterLessException("the size of stack is less than 2");
@@ -59,6 +55,7 @@ public class Calculator {
         actions.addStart().addPop(a).addPop(b).addPush().addEnd();
     }
 
+    @Override
     public void div() {
         if (stack.size() < 2) {
             throw new ParameterLessException("the size of stack is less than 2");
@@ -74,6 +71,7 @@ public class Calculator {
         actions.addStart().addPop(a).addPop(b).addPush().addEnd();
     }
 
+    @Override
     public void sqrt() {
         if (stack.size() < 1) {
             throw new ParameterLessException("the size of stack is less than 1");
@@ -88,6 +86,7 @@ public class Calculator {
         actions.addStart().addPop(a).addPush().addEnd();
     }
 
+    @Override
     public void undo() {
         Stack<Action> list = actions.list();
         if (list.isEmpty()) {
@@ -125,6 +124,7 @@ public class Calculator {
         actions.addEnd();
     }
 
+    @Override
     public void clear() {
         actions.addStart();
         while (!stack.isEmpty()) {
@@ -133,8 +133,8 @@ public class Calculator {
         }
         actions.addEnd();
     }
-
-    public void addToStack(Double v) {
+    @Override
+    public void push(Double v) {
         stack.push(v);
         actions.addStart().addPush().addEnd();
     }

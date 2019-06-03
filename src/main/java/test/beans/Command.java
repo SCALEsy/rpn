@@ -1,6 +1,13 @@
 package test.beans;
 
 public class Command {
+    public final static String ADD = "+";
+    public final static String SUB = "-";
+    public final static String MUL = "*";
+    public final static String DIV = "/";
+    public final static String SQRT = "sqrt";
+    public final static String UNDO = "undo";
+    public final static String CLEAR = "clear";
     private String cmd;
     private int index;
 

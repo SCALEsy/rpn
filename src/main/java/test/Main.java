@@ -5,6 +5,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 import test.beans.Command;
 import test.exception.ParameterLessException;
 import test.parse.InputParse;
+import test.service.Calculator;
+import test.service.impl.CalculatorImpl;
 
 import java.util.Queue;
 import java.util.Scanner;
@@ -12,7 +14,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String args[]) {
         Scanner scanner = new Scanner(System.in);
-        Calculator rpn = new Calculator();
+        Calculator rpn = new CalculatorImpl();
         String str = null;
         InputParse parse = new InputParse();
         while ((str = scanner.nextLine()) != null) {
@@ -27,29 +29,29 @@ public class Main {
                     operator = cmd.getCmd();
 
                     if (NumberUtils.isParsable(operator)) {
-                        rpn.addToStack(Double.valueOf(operator));
+                        rpn.push(Double.valueOf(operator));
                     } else {
                         try {
                             switch (operator) {
-                                case Calculator.ADD:
+                                case Command.ADD:
                                     rpn.add();
                                     break;
-                                case Calculator.SUB:
+                                case Command.SUB:
                                     rpn.sub();
                                     break;
-                                case Calculator.MUL:
+                                case Command.MUL:
                                     rpn.mul();
                                     break;
-                                case Calculator.DIV:
+                                case Command.DIV:
                                     rpn.div();
                                     break;
-                                case Calculator.SQRT:
+                                case Command.SQRT:
                                     rpn.sqrt();
                                     break;
-                                case Calculator.UNDO:
+                                case Command.UNDO:
                                     rpn.undo();
                                     break;
-                                case Calculator.CLEAR:
+                                case Command.CLEAR:
                                     rpn.clear();
                                     break;
                                 default:
